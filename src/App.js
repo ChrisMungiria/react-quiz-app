@@ -43,10 +43,10 @@ export default function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
-  const [highScores, setHighScores] = useState([]); // [ {name: 'John', score: 5}, {name: 'Jane', score: 4}
-  const [name, setName] = useState("John");
+  const [previousScore, setPreviousScore] = useState(0);
 
   const handleResetClick = () => {
+    setPreviousScore(score);
     setCurrentQuestion(0);
     setScore(0);
     setShowScore(false);
@@ -58,9 +58,7 @@ export default function App() {
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
-      setHighScores([...highScores, { name: name, score: score }]);
     } else {
-      setScore(score);
       setShowScore(true);
     }
   };
@@ -76,12 +74,8 @@ export default function App() {
             </button>
           </div>
           <div className="highScores">
-            <h4>High Scores</h4>
-            {highScores.map((highScore) => (
-              <div>
-                {highScore.name} - {highScore.score}
-              </div>
-            ))}
+            <h4>Previous Score</h4>
+            {previousScore}
           </div>
         </div>
       ) : (
